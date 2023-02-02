@@ -1,0 +1,43 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int* rev(int a[],int l,int h){// function which is used to reverse the subarray of the array with the help of two pointer 
+        int temp;
+        while(l<=h){// the last element is swapped with the 1st arrya in the same way last but element is swapped with 2nd element and so on...
+                temp=a[l];// if no.of elements are old then middle element will remains same.
+                a[l]=a[h];
+                a[h]=temp;
+                l++;
+                h--;
+        }
+        return a;
+}
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+        int t;
+        cin>>t;
+        while(t>0){
+                int n,k;
+                cin>>n>>k;
+                int a[n];
+                for(int i=0;i<n;i++){
+                        cin>>a[i];
+                }
+                if(k>n) k=k%n;//if k is greater than k then array after k rotation is equal to the array after k%n rotations.
+                rev(a,0,n-k-1);// reverse the array till n-k-1 elements with the help of two pointers method
+                rev(a,n-k,n-1);//reverse the array from n-k to n elements with the help of two pointer method
+                reverse(a,a+n);// then reverse the hold array then you will get the rotated array.
+                for(int i=0;i<n;i++){
+                        cout<<a[i]<<" ";
+                }
+                cout<<"\n";
+                t--;
+        }
+    return 0;
+}
+Time complexity:O(n)
+space complexity=1
