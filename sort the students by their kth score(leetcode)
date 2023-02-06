@@ -1,0 +1,61 @@
+// 1st solution 
+class Solution {
+public:
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+        priority_queue<pair<int,int>> p;//in pair 1st value is key and second value is value and priority queue(maxheap) stored the value descending order of their key values 
+        vector<vector<int>> a;
+        for(int i=0;i<score.size();i++){
+            p.push({score[i][k],i});//so store kth column value as key and row as value
+        }
+        while(p.empty()!=true){
+            int r=p.top().second;// return the top of the maxheap
+            p.pop();//it pop the top of maxheap
+            a.push_back(score[r]);
+        }
+        return a;
+    }
+};
+//2nd solution
+ class Solution {
+public:
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+       // swap values of kth position to first position.
+        for(int i=0; i<score.size(); i++)
+        {
+            int temp=score[i][0];
+            score[i][0]=score[i][k];
+            score[i][k]=temp;
+            
+        }
+        // now sort by sort fuction as the kth column will be the first column the sorting will be done according kth column.
+        sort(score.rbegin(),score.rend());
+        
+        // Again make sure to swap the kth and first column values.
+         for(int i=0; i<score.size(); i++)
+        {
+            int temp=score[i][0];
+            score[i][0]=score[i][k];
+            score[i][k]=temp;
+            
+        }
+        return score;
+    }
+};
+t.c:O(nlogn)
+//3rd solution: using comparator function 
+int r;
+bool comp(vector<int>& a, vector<int>& b)
+{   
+    return (a[r]>b[r]); 
+}
+class Solution {
+public:
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+       // need to store k globally so can be used in comp function
+        r=k;
+       // used comparator function for sorting
+        sort(score.begin(),score.end(),comp);
+        return score;
+    }
+};
+t.c: O(nlogn)
